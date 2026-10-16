@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>足迹地球 · auto-init 示例</title>
+    <style>
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+        color: #111827;
+        background: #f9fafb;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        max-width: 48rem;
+        margin: 0 auto 1.5rem;
+        font-size: 1.5rem;
+      }
+      .demo {
+        max-width: 48rem;
+        margin: 0 auto 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>auto-init 示例</h1>
+
+    <div class="demo">
+      <div
+        class="footprint-globe"
+        data-src="./data/pins.json"
+        height="480px"
+        theme="light"
+        legend="true"
+      ></div>
+    </div>
+
+    <p style="max-width: 48rem; margin: 1rem auto; font-size: 0.85rem; color: #6b7280">
+      只要引入 <code>auto.js</code>，所有 <code>.footprint-globe</code> 自动初始化。
+    </p>
+
+    <!-- 引入 auto 入口：注册自定义元素 + 自动扫描 -->
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../packages/core/dist/index.js"
+        }
+      }
+    </script>
+    <script type="module" src="../../packages/web-component/dist/auto.js"></script>
+  </body>
+</html>

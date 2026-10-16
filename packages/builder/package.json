@@ -1,0 +1,31 @@
+{
+  "name": "@footprint-studio/builder",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/footprint-studio/footprint-studio.git",
+    "directory": "packages/builder"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src test vitest.config.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "footprint-globe": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "@vitest/coverage-v8": "^2.0.5",
+    "jsdom": "^24.1.1",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.5"
+  }
+}

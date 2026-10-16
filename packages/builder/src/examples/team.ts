@@ -1,0 +1,29 @@
+import type { FootprintConfig } from 'footprint-globe';
+
+export const team: FootprintConfig = {
+  version: 1,
+  categories: [
+    {
+      id: 'team',
+      label: '团队成员',
+      color: '#10b981',
+      pins: [
+        { name: '北京 · 产品', coords: [116.412144, 40.190632] },
+        { name: '上海 · 设计', coords: [121.4692071, 31.2322758] },
+        { name: '深圳 · 工程', coords: [114.057868, 22.543099] },
+        { name: '新加坡 · 工程', coords: [103.851959, 1.29027] },
+        { name: '伦敦 · 运营', coords: [-0.1276474, 51.5073219] },
+        { name: '纽约 · 商务', coords: [-74.0060152, 40.7127281] },
+        { name: '悉尼 · 支持', coords: [151.2092955, -33.8688197] },
+        { name: '东京 · 合作', coords: [139.7594549, 35.6828387] },
+      ],
+    },
+  ],
+  config: {
+    projection: 'globe',
+    theme: 'light',
+    center: [20, 20],
+    zoom: 1.4,
+    legend: true,
+  },
+};

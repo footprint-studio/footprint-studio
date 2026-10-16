@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "residence",
+      "label": "居住",
+      "color": "#2563eb",
+      "pins": [
+        {
+          "name": "2023.10 新加坡",
+          "coords": [103.851959, 1.29027]
+        }
+      ]
+    },
+    {
+      "id": "travel",
+      "label": "旅行",
+      "color": "#f97316",
+      "pins": [
+        {
+          "name": "2019.04 东京",
+          "coords": [139.7594549, 35.6828387]
+        },
+        {
+          "name": "2022.12 巴黎",
+          "coords": [2.3200571537017827, 48.85914127882758]
+        }
+      ]
+    }
+  ],
+  "config": {
+    "theme": "light",
+    "projection": "globe",
+    "legend": true
+  }
+}

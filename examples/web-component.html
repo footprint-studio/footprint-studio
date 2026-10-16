@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>足迹地球 · Web Component 示例</title>
+    <!-- 故意污染宿主样式，验证 Shadow DOM 隔离 -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+        color: #111827;
+        background: #f9fafb;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        max-width: 48rem;
+        margin: 0 auto 1.5rem;
+        font-size: 1.5rem;
+      }
+      .demo {
+        max-width: 48rem;
+        margin: 0 auto 1.5rem;
+      }
+      .note {
+        max-width: 48rem;
+        margin: 1rem auto;
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+      /* 污染：宿主全局 button 样式不应影响 Shadow DOM 内 marker */
+      button {
+        background: red !important;
+        color: white !important;
+        padding: 20px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Web Component 示例</h1>
+
+    <div class="demo">
+      <footprint-globe id="globe" height="480px" theme="light" legend="true"></footprint-globe>
+    </div>
+
+    <p class="note">
+      Shadow DOM 隔离验证：宿主 <code>button { background: red }</code>
+      不应影响组件内的标记点与图例。
+    </p>
+
+    <script>
+      // 提供数据（可通过 data-pins / data-src / window.FOOTPRINT_PINS 任一方式）
+      window.FOOTPRINT_PINS = {
+        residence: [
+          { name: '1995.06 临沂', coords: [118.35053086280824, 35.10379488422636] },
+          { name: '2023.10 新加坡', coords: [103.851959, 1.29027] },
+        ],
+        travel: [
+          { name: '2019.04 东京', coords: [139.7594549, 35.6828387] },
+          { name: '2019.04 京都', coords: [135.7556075, 35.021041] },
+          { name: '2022.12 巴黎', coords: [2.3200571537017827, 48.85914127882758] },
+        ],
+      };
+    </script>
+
+    <!-- 引入 Web Component -->
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../packages/core/dist/index.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import { register } from '../../packages/web-component/dist/index.js';
+      register();
+
+      const el = document.getElementById('globe');
+      el.addEventListener('fp-ready', () => {
+        console.info('[demo] fp-ready');
+      });
+      el.addEventListener('fp-error', (e) => {
+        console.warn('[demo] fp-error', e.detail);
+      });
+    </script>
+  </body>
+</html>

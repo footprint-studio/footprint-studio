@@ -1,0 +1,22 @@
+{
+  "name": "@footprint-studio/test",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test --project=chromium --project=e2e-chromium",
+    "test:visual": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:visual:chromium": "playwright test --project=chromium",
+    "test:e2e": "playwright test --project=e2e-chromium",
+    "test:update": "playwright test --project=chromium --update-snapshots",
+    "test:report": "playwright show-report",
+    "install:browsers": "playwright install --with-deps chromium firefox webkit",
+    "install:browser:chromium": "playwright install --with-deps chromium",
+    "lint": "echo \"e2e lint skipped\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.0",
+    "serve": "^14.2.3"
+  }
+}

@@ -1,0 +1,19 @@
+/* Embed 页基础样式：去掉默认边距，让内容占满 iframe */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: transparent;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+}
+
+#globe {
+  width: 100%;
+  min-height: 100vh;
+  display: block;
+}

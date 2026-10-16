@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixture · iframe</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #ffffff;
+        padding: 16px;
+      }
+      #wrap {
+        width: 640px;
+      }
+      iframe {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        background: #eef2f7;
+        min-height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <iframe
+        id="fp"
+        src="../../../../packages/embed/dist/index.html?src=./pins.json&theme=light"
+        title="我的足迹"
+        sandbox="allow-scripts allow-same-origin"
+      ></iframe>
+    </div>
+
+    <script>
+      // 高度自适应
+      const iframe = document.getElementById('fp');
+      window.addEventListener('message', (e) => {
+        const data = e.data;
+        if (data && data.type === 'footprint:height' && typeof data.height === 'number') {
+          iframe.style.height = data.height + 'px';
+          document.documentElement.setAttribute('data-fp-ready', '1');
+        }
+      });
+    </script>
+  </body>
+</html>

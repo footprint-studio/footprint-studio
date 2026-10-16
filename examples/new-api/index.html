@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>足迹 · Footprint Globe (new API)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.css" />
+    <link rel="stylesheet" href="../../packages/core/dist/footprint-globe.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+        color: #111827;
+        background: #f9fafb;
+        -webkit-font-smoothing: antialiased;
+      }
+      .page {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 2rem;
+      }
+      .page-title {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+        font-weight: 700;
+      }
+      .page-desc {
+        margin: 0 0 1.5rem;
+        font-size: 1rem;
+        color: #374151;
+      }
+      .page-note {
+        margin-top: 1.25rem;
+        font-size: 0.8rem;
+        color: #9ca3af;
+        text-align: center;
+      }
+      .page-note a {
+        color: #6b7280;
+      }
+      .wrapper {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1 class="page-title">足迹</h1>
+      <p class="page-desc">不是一个旅游爱好者，但经常世界各地搬家</p>
+      <div class="wrapper">
+        <div id="globe" class="footprint-globe"></div>
+      </div>
+      <p class="page-note">
+        基于开源
+        <a href="https://maplibre.org/maplibre-gl-js/" target="_blank" rel="noopener">
+          MapLibre GL JS
+        </a>
+        · 复刻 DIYgod 足迹地球 · 使用 footprint-globe 新 API
+      </p>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.js"></script>
+    <script src="./data/pins.js"></script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

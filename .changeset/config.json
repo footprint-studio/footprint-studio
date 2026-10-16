@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.2/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [["footprint-globe", "@footprint-studio/web-component"]],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "@footprint-studio/builder",
+    "@footprint-studio/embed",
+    "@footprint-studio/docs",
+    "@footprint-studio/test"
+  ]
+}

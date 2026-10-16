@@ -1,0 +1,178 @@
+/* ============================================================
+ * 足迹地球 · 组件样式
+ * 契约依据：ADR-0001 决策 4、PRD v1.1 §7.1
+ * 类名前缀：footprint-
+ * CSS 变量前缀：--fp-
+ * ============================================================ */
+
+:root {
+  /* 尺寸 */
+  --fp-marker-size: 8px;
+  --fp-marker-hover-scale: 1.15;
+  --fp-globe-height: 400px;
+  --fp-globe-radius: 12px;
+
+  /* 颜色 */
+  --fp-marker-color: #2563eb;
+  --fp-marker-border: #fff;
+  --fp-globe-bg: #eef2f7;
+  --fp-legend-bg: rgba(255, 255, 255, 0.9);
+  --fp-legend-color: #111827;
+
+  /* 阴影 */
+  --fp-marker-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08), 0 1px 3px rgba(0, 0, 0, 0.25);
+  --fp-legend-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* 布局 */
+  --fp-legend-radius: 9999px;
+  --fp-legend-gap: 0.75rem;
+}
+
+/* 暗色主题覆盖 */
+[data-fp-theme='dark'] {
+  --fp-globe-bg: #111827;
+  --fp-legend-bg: rgba(17, 24, 39, 0.85);
+  --fp-legend-color: #f9fafb;
+  --fp-marker-border: #111827;
+}
+
+/* ===== 容器 ===== */
+.footprint-globe {
+  width: 100%;
+  min-height: var(--fp-globe-height);
+  border-radius: var(--fp-globe-radius);
+  overflow: hidden;
+  background: var(--fp-globe-bg);
+  position: relative;
+}
+
+/* ===== 标记 ===== */
+.footprint-marker {
+  width: var(--fp-marker-size);
+  height: var(--fp-marker-size);
+  border-radius: 9999px;
+  border: 1px solid var(--fp-marker-border);
+  background: var(--fp-marker-color);
+  box-shadow: var(--fp-marker-shadow);
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: block;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.footprint-marker:hover,
+.footprint-marker:focus-visible {
+  transform: scale(var(--fp-marker-hover-scale));
+  outline: none;
+}
+
+.footprint-marker:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--fp-marker-border),
+    0 0 0 6px var(--fp-marker-color);
+}
+
+/* ===== 图例 ===== */
+.footprint-legend {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: var(--fp-legend-gap);
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--fp-legend-radius);
+  background: var(--fp-legend-bg);
+  box-shadow: var(--fp-legend-shadow);
+  backdrop-filter: blur(6px);
+  color: var(--fp-legend-color);
+  font-size: 0.85rem;
+  line-height: 1.1;
+  z-index: 1;
+}
+
+.footprint-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.footprint-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  display: inline-block;
+  border: 2px solid var(--fp-marker-border);
+  box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.08);
+  background: var(--fp-marker-color);
+}
+
+/* ===== 降级列表 ===== */
+.footprint-list {
+  padding: 1rem 1.25rem;
+  background: var(--fp-globe-bg);
+  border-radius: var(--fp-globe-radius);
+  color: var(--fp-legend-color);
+  font-size: 0.95rem;
+}
+
+.footprint-list__notice {
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  font-size: 0.85rem;
+  color: var(--fp-legend-color);
+}
+
+.footprint-list__group {
+  margin-bottom: 1rem;
+}
+
+.footprint-list__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.footprint-list__items {
+  margin: 0;
+  padding-left: 1.4rem;
+  list-style: disc;
+}
+
+.footprint-list__item {
+  margin: 0.2rem 0;
+  line-height: 1.5;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .footprint-globe {
+    min-height: 300px;
+  }
+  .footprint-legend {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.6rem;
+    gap: 0.5rem;
+  }
+}
+
+/* ===== 兼容别名（一个 minor 版本后移除） ===== */
+.mapbox-globe {
+  width: 100%;
+  min-height: var(--fp-globe-height);
+  border-radius: var(--fp-globe-radius);
+  overflow: hidden;
+  background: var(--fp-globe-bg);
+  position: relative;
+}

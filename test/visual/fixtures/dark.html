@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixture · dark</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 16px;
+      }
+      #wrap {
+        width: 640px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <footprint-globe id="globe" height="400px" theme="dark" legend="true"></footprint-globe>
+    </div>
+
+    <script>
+      window.FOOTPRINT_PINS = {
+        residence: [{ name: '2023.10 新加坡', coords: [103.851959, 1.29027] }],
+        travel: [{ name: '2019.04 东京', coords: [139.7594549, 35.6828387] }],
+      };
+    </script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../../../packages/core/dist/index.js",
+          "maplibre-gl": "https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import { register } from '../../../../packages/web-component/dist/index.js';
+      register();
+      document.getElementById('globe').addEventListener('fp-ready', () => {
+        document.documentElement.setAttribute('data-fp-ready', '1');
+      });
+    </script>
+  </body>
+</html>

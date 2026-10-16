@@ -1,0 +1,5 @@
+# 参考文件，非必需
+# 使用 `wrangler pages deploy dist-site --project-name=footprint-studio` 时不需要本文件
+name = "footprint-studio"
+pages_build_output_dir = "dist-site"
+compatibility_date = "2025-01-01"

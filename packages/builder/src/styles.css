@@ -1,0 +1,649 @@
+/* ============================================================
+ * 足迹地球 · Builder 样式
+ * 契约依据：《Sprint 3 执行方案》§6 S3-1
+ * ============================================================ */
+
+:root {
+  --builder-bg: #f9fafb;
+  --builder-panel-bg: #ffffff;
+  --builder-border: #e5e7eb;
+  --builder-text: #111827;
+  --builder-text-muted: #6b7280;
+  --builder-primary: #2563eb;
+  --builder-error: #dc2626;
+  --builder-warning: #d97706;
+  --builder-radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --builder-bg: #0f172a;
+    --builder-panel-bg: #1e293b;
+    --builder-border: #334155;
+    --builder-text: #f1f5f9;
+    --builder-text-muted: #94a3b8;
+    --builder-primary: #3b82f6;
+    --builder-error: #ef4444;
+    --builder-warning: #f59e0b;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  color: var(--builder-text);
+  background: var(--builder-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.builder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--builder-border);
+  background: var(--builder-panel-bg);
+}
+
+.builder-header__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.builder-header__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.builder-header__subtitle {
+  font-size: 0.8rem;
+  color: var(--builder-text-muted);
+}
+
+.builder-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--builder-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--builder-text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.builder-btn:hover {
+  background: var(--builder-bg);
+}
+
+/* Notice */
+.builder-notice {
+  padding: 0.5rem 1.25rem;
+  background: color-mix(in srgb, var(--builder-primary) 10%, var(--builder-panel-bg));
+  border-bottom: 1px solid var(--builder-border);
+  font-size: 0.85rem;
+  color: var(--builder-text);
+}
+
+/* Body layout */
+.builder-body {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 1024px) {
+  .builder-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.builder-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: auto;
+}
+
+.builder-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
+  /* 关键：grid 项默认 min-width:auto，会被内部 pre 长代码行/画布撑开导致整页横向滚动 */
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.builder-main > .builder-preview {
+  flex: 0 0 auto;
+}
+
+/* Panel */
+.builder-panel {
+  background: var(--builder-panel-bg);
+  border: 1px solid var(--builder-border);
+  border-radius: var(--builder-radius);
+  overflow: hidden;
+}
+
+.builder-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--builder-border);
+}
+
+.builder-panel__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.builder-panel__body {
+  padding: 0.8rem 1rem 1rem;
+}
+
+/* Tabs */
+.builder-tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  background: var(--builder-bg);
+  border-radius: 8px;
+  padding: 0.2rem;
+}
+
+.builder-tab {
+  padding: 0.25rem 0.6rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--builder-text-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.builder-tab[data-active='1'] {
+  background: var(--builder-panel-bg);
+  color: var(--builder-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Textarea */
+.builder-textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--builder-border);
+  border-radius: 8px;
+  background: var(--builder-bg);
+  color: var(--builder-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.builder-textarea:focus {
+  outline: 2px solid var(--builder-primary);
+  outline-offset: -1px;
+}
+
+/* Examples */
+.builder-hint {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  color: var(--builder-text-muted);
+}
+
+.builder-example-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.builder-example-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--builder-border);
+  border-radius: 8px;
+  background: var(--builder-bg);
+  color: var(--builder-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.builder-example-btn:hover {
+  border-color: var(--builder-primary);
+}
+
+.builder-example-btn__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.builder-example-btn__desc {
+  font-size: 0.78rem;
+  color: var(--builder-text-muted);
+  margin-top: 0.15rem;
+}
+
+/* Errors / Warnings */
+.builder-errors,
+.builder-warnings {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.builder-errors {
+  background: color-mix(in srgb, var(--builder-error) 12%, transparent);
+  color: var(--builder-error);
+  border: 1px solid color-mix(in srgb, var(--builder-error) 30%, transparent);
+}
+
+.builder-warnings {
+  background: color-mix(in srgb, var(--builder-warning) 12%, transparent);
+  color: var(--builder-warning);
+  border: 1px solid color-mix(in srgb, var(--builder-warning) 30%, transparent);
+}
+
+.builder-error-item + .builder-error-item,
+.builder-warning-item + .builder-warning-item {
+  margin-top: 0.3rem;
+}
+
+/* Preview */
+.builder-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.builder-preview__frame {
+  /* 显式定高：不要 flex:1（basis 0 会把高度压成内容高，出现"一条线"） */
+  flex: 0 0 auto;
+  position: relative;
+  border: 1px solid var(--builder-border);
+  border-radius: var(--builder-radius);
+  background: var(--builder-panel-bg);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: clamp(320px, 55vh, 640px);
+  min-width: 0;
+  min-height: 0;
+}
+
+.builder-preview__container {
+  /* 直接铺满定高 frame：frame 高度已确定性 clamp，容器不再做比例耦合 */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--builder-panel-bg);
+}
+
+.builder-preview__placeholder {
+  padding: 2rem;
+  text-align: center;
+  color: var(--builder-text-muted);
+  font-size: 0.9rem;
+}
+
+.builder-preview__warning {
+  padding: 0.5rem 0.9rem;
+  margin: 0.6rem;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--builder-radius);
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* ============================================================
+ * 配置面板（Sprint 3 · B 组）
+ * ============================================================ */
+
+.builder-panel--config .builder-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.builder-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.builder-group__legend {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--builder-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+/* 分类行 */
+.builder-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.builder-category-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.builder-color {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--builder-border);
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.builder-color::-webkit-color-swatch {
+  border: 0;
+  border-radius: 5px;
+}
+
+.builder-color::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+
+.builder-input {
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--builder-border);
+  border-radius: 6px;
+  background: var(--builder-bg);
+  color: var(--builder-text);
+  font: inherit;
+  font-size: 0.82rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.builder-input--flex {
+  flex: 1;
+}
+
+.builder-input:focus {
+  outline: 2px solid var(--builder-primary);
+  outline-offset: -1px;
+}
+
+.builder-category-count {
+  flex-shrink: 0;
+  min-width: 1.6rem;
+  padding: 0.15rem 0.4rem;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--builder-text-muted);
+  background: var(--builder-bg);
+  border-radius: 999px;
+}
+
+.builder-btn--icon {
+  flex-shrink: 0;
+  padding: 0.15rem 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--builder-text-muted);
+  border-radius: 6px;
+}
+
+.builder-btn--icon:hover {
+  color: var(--builder-error);
+}
+
+.builder-btn--ghost {
+  display: block;
+  width: 100%;
+  border-style: dashed;
+  color: var(--builder-text-muted);
+}
+
+.builder-btn--ghost:hover {
+  color: var(--builder-primary);
+  border-color: var(--builder-primary);
+  background: transparent;
+}
+
+/* 单选组 */
+.builder-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.builder-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--builder-border);
+  border-radius: 6px;
+  background: var(--builder-bg);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.builder-radio input {
+  margin: 0;
+  accent-color: var(--builder-primary);
+}
+
+.builder-radio:has(input:checked) {
+  border-color: var(--builder-primary);
+  background: color-mix(in srgb, var(--builder-primary) 10%, transparent);
+}
+
+/* 字段 */
+.builder-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.builder-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.builder-field__label {
+  font-size: 0.75rem;
+  color: var(--builder-text-muted);
+}
+
+/* 开关 */
+.builder-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.builder-switch input {
+  margin: 0;
+  accent-color: var(--builder-primary);
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================
+ * 导出面板（Sprint 3 · C 组）
+ * ============================================================ */
+
+.builder-panel--export .builder-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.builder-recommend {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  background: color-mix(in srgb, var(--builder-primary) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--builder-primary) 25%, transparent);
+  color: var(--builder-text);
+}
+
+.builder-recommend[data-recommendation='id'] {
+  background: color-mix(in srgb, var(--builder-warning) 10%, transparent);
+  border-color: color-mix(in srgb, var(--builder-warning) 30%, transparent);
+}
+
+.builder-recommend__size {
+  flex-shrink: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--builder-panel-bg);
+  font-size: 0.75rem;
+}
+
+.builder-recommend__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.builder-btn--mini {
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.builder-tabs--full {
+  display: flex;
+  width: 100%;
+  background: var(--builder-bg);
+  border-radius: 8px;
+  padding: 0.2rem;
+  gap: 0.2rem;
+}
+
+.builder-tabs--full .builder-tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.82rem;
+}
+
+.builder-export-desc {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--builder-text-muted);
+  line-height: 1.5;
+}
+
+/* 代码块 */
+.builder-code-wrap {
+  position: relative;
+  border: 1px solid var(--builder-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--builder-bg);
+}
+
+.builder-code {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--builder-text);
+  white-space: pre;
+  overflow: auto;
+  max-height: 340px;
+}
+
+.builder-code code {
+  font: inherit;
+}
+
+.builder-btn--copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  background: var(--builder-panel-bg);
+  border: 1px solid var(--builder-border);
+  border-radius: 6px;
+  color: var(--builder-text);
+  cursor: pointer;
+}
+
+.builder-btn--copy:hover {
+  border-color: var(--builder-primary);
+  color: var(--builder-primary);
+}
+
+/* ============================================================
+ * 顶栏操作与提示（Sprint 3 · D 组）
+ * ============================================================ */
+
+.builder-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.builder-header__actions .builder-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

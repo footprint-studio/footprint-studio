@@ -1,0 +1,34 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+.turbo/
+*.tsbuildinfo
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.*
+!.env.example
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# test
+coverage/
+playwright-report/
+test-results/
+
+# local
+*.local
+/docs/
+/Sprint_*_验收报告.md

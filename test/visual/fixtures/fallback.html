@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixture · fallback</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #ffffff;
+        padding: 16px;
+      }
+      #wrap {
+        width: 640px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <footprint-globe id="globe" height="400px"></footprint-globe>
+    </div>
+
+    <script>
+      // 强制关闭 WebGL
+      const originalGetContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function (type, ...args) {
+        if (type === 'webgl' || type === 'experimental-webgl' || type === 'webgl2') {
+          return null;
+        }
+        return originalGetContext.call(this, type, ...args);
+      };
+
+      window.FOOTPRINT_PINS = {
+        residence: [{ name: '2023.10 新加坡', coords: [103.851959, 1.29027] }],
+        travel: [
+          { name: '2019.04 东京', coords: [139.7594549, 35.6828387] },
+          { name: '2022.12 巴黎', coords: [2.3200571537017827, 48.85914127882758] },
+        ],
+      };
+    </script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../../../packages/core/dist/index.js",
+          "maplibre-gl": "https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import { register } from '../../../../packages/web-component/dist/index.js';
+      register();
+      document.getElementById('globe').addEventListener('fp-error', () => {
+        document.documentElement.setAttribute('data-fp-ready', '1');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>团队 · 全球分布</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+        color: #0f172a;
+        background: #f1f5f9;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      .header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .lede {
+        font-size: 1rem;
+        color: #475569;
+        margin: 0;
+        max-width: 36rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.8rem;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        color: #334155;
+      }
+
+      .badge__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #10b981;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      .globe-wrap {
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+      }
+
+      .members {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 1.25rem;
+      }
+
+      .members h2 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        margin: 0 0 1rem;
+      }
+
+      .member {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.9rem;
+      }
+
+      .member:last-child {
+        border-bottom: 0;
+      }
+
+      .member__avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        color: #334155;
+        display: grid;
+        place-items: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      .member__info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .member__name {
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .member__role {
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+
+      footer {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+
+      footer a {
+        color: #64748b;
+        text-decoration: none;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="header">
+        <div>
+          <h1>我们的团队</h1>
+          <p class="lede">分布式协作，8 位成员分布在 3 个大洲。点击地球上的标记查看所在城市。</p>
+        </div>
+        <span class="badge">
+          <span class="badge__dot"></span>
+          8 位成员在线
+        </span>
+      </div>
+
+      <div class="layout">
+        <div class="globe-wrap">
+          <footprint-globe
+            id="globe"
+            data-src="./data/pins.json"
+            height="560px"
+            theme="light"
+            legend="true"
+          ></footprint-globe>
+        </div>
+
+        <aside class="members">
+          <h2>Members</h2>
+          <div class="member">
+            <span class="member__avatar">BJ</span>
+            <div class="member__info">
+              <div class="member__name">北京 · 产品</div>
+              <div class="member__role">Product</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">SH</span>
+            <div class="member__info">
+              <div class="member__name">上海 · 设计</div>
+              <div class="member__role">Design</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">SZ</span>
+            <div class="member__info">
+              <div class="member__name">深圳 · 工程</div>
+              <div class="member__role">Engineering</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">SG</span>
+            <div class="member__info">
+              <div class="member__name">新加坡 · 工程</div>
+              <div class="member__role">Engineering</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">LD</span>
+            <div class="member__info">
+              <div class="member__name">伦敦 · 运营</div>
+              <div class="member__role">Operations</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">NY</span>
+            <div class="member__info">
+              <div class="member__name">纽约 · 商务</div>
+              <div class="member__role">Business</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">SY</span>
+            <div class="member__info">
+              <div class="member__name">悉尼 · 支持</div>
+              <div class="member__role">Support</div>
+            </div>
+          </div>
+          <div class="member">
+            <span class="member__avatar">TK</span>
+            <div class="member__info">
+              <div class="member__name">东京 · 合作</div>
+              <div class="member__role">Partnership</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        基于 <a href="https://github.com/footprint-studio/footprint-studio">footprint-globe</a>
+      </footer>
+    </main>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../packages/core/dist/index.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import { register } from '../../packages/web-component/dist/index.js';
+      register();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "@footprint-studio/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/footprint-studio/footprint-studio.git",
+    "directory": "packages/docs"
+  },
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "lint": "echo \"docs lint skipped\"",
+    "typecheck": "echo \"docs typecheck skipped\""
+  },
+  "devDependencies": {
+    "vitepress": "^1.3.4"
+  }
+}

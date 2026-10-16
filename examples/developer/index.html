@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>关于 · 我的足迹</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+        color: #0a0a0a;
+        background: #fafafa;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .prompt {
+        font-size: 0.85rem;
+        color: #737373;
+        margin: 0 0 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin: 0 0 1.5rem;
+        letter-spacing: -0.01em;
+      }
+
+      h1::before {
+        content: '$ ';
+        color: #10b981;
+      }
+
+      .lede {
+        font-size: 0.95rem;
+        color: #404040;
+        margin: 0 0 2.5rem;
+        max-width: 42rem;
+      }
+
+      .lede code {
+        background: #f5f5f5;
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+        font-size: 0.85em;
+      }
+
+      .globe-wrap {
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        padding: 1rem 0;
+        border-top: 1px solid #e5e5e5;
+        font-size: 0.8rem;
+        color: #737373;
+      }
+
+      .meta__item strong {
+        color: #0a0a0a;
+        margin-right: 0.35rem;
+      }
+
+      footer {
+        margin-top: 3rem;
+        font-size: 0.75rem;
+        color: #a3a3a3;
+      }
+
+      footer a {
+        color: #737373;
+        text-decoration: underline;
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 1.3rem;
+        }
+        .container {
+          padding-top: 3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <p class="prompt">~/about</p>
+      <h1>足迹</h1>
+      <p class="lede">
+        目前居住在新加坡，此前在上海、杭州、格拉斯哥、圣安德鲁斯待过。 蓝色为居住地，橙色为旅行地。
+      </p>
+
+      <div class="globe-wrap">
+        <footprint-globe
+          id="globe"
+          data-src="./data/pins.json"
+          height="480px"
+          theme="light"
+          legend="true"
+        ></footprint-globe>
+      </div>
+
+      <div class="meta">
+        <div class="meta__item"><strong>residence</strong>5 城市</div>
+        <div class="meta__item"><strong>travel</strong>5 城市</div>
+        <div class="meta__item"><strong>built with</strong>MapLibre GL JS</div>
+      </div>
+
+      <footer>
+        <a href="https://github.com/footprint-studio/footprint-studio">footprint-globe</a>
+        · MIT · no token
+      </footer>
+    </main>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../packages/core/dist/index.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import { register } from '../../packages/web-component/dist/index.js';
+      register();
+    </script>
+  </body>
+</html>

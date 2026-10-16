@@ -1,0 +1,65 @@
+{
+  "name": "footprint-globe",
+  "version": "1.0.0",
+  "description": "3D footprint globe for personal blogs and homepages",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/footprint-studio/footprint-studio.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/footprint-studio/footprint-studio/tree/main/packages/core",
+  "bugs": {
+    "url": "https://github.com/footprint-studio/footprint-studio/issues"
+  },
+  "keywords": [
+    "footprint",
+    "globe",
+    "maplibre",
+    "map",
+    "travel",
+    "3d",
+    "web-component"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./dist/footprint-globe.css": "./dist/footprint-globe.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src test vitest.config.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "maplibre-gl": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "maplibre-gl": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.0.5",
+    "jsdom": "^24.1.1",
+    "maplibre-gl": "^5.4.0",
+    "tsup": "^8.2.4",
+    "vitest": "^2.0.5"
+  }
+}

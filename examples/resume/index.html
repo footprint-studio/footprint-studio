@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简历 · 足迹</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+        color: #111827;
+        background: #fff;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 48rem;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      header {
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid #111827;
+        margin-bottom: 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 0.25rem;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+        color: #4b5563;
+        margin: 0;
+      }
+
+      .contact {
+        margin-top: 0.75rem;
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+
+      .contact a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+
+      h2 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #6b7280;
+        margin: 2rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .globe-wrap {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+      }
+
+      .globe-caption {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        margin: 0 0 1rem;
+        text-align: right;
+      }
+
+      .timeline {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .timeline li {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 1rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 0.9rem;
+      }
+
+      .timeline li:last-child {
+        border-bottom: 0;
+      }
+
+      .timeline time {
+        color: #6b7280;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .timeline__place {
+        font-weight: 500;
+      }
+
+      .timeline__role {
+        font-size: 0.8rem;
+        color: #9ca3af;
+      }
+
+      @media print {
+        .container {
+          padding: 1rem;
+          max-width: none;
+        }
+        .globe-caption {
+          display: none;
+        }
+        h2 {
+          page-break-after: avoid;
+        }
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 1.5rem;
+        }
+        .timeline li {
+          grid-template-columns: 70px 1fr;
+          gap: 0.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>张明</h1>
+        <p class="subtitle">软件工程师 · 分布式系统</p>
+        <p class="contact">
+          <a href="mailto:hi@example.com">hi@example.com</a> ·
+          <a href="https://github.com/example">github.com/example</a>
+        </p>
+      </header>
+
+      <h2>足迹</h2>
+      <div class="globe-wrap">
+        <footprint-globe
+          id="globe"
+          data-src="./data/pins.json"
+          height="360px"
+          theme="light"
+          legend="true"
+        ></footprint-globe>
+      </div>
+      <p class="globe-caption">蓝色 = 居住地，橙色 = 旅行地</p>
+
+      <h2>居住经历</h2>
+      <ul class="timeline">
+        <li>
+          <time>2023.10 –</time
+          ><span
+            ><span class="timeline__place">新加坡</span
+            ><span class="timeline__role"> · 现居</span></span
+          >
+        </li>
+        <li>
+          <time>2021.12 – 2023.10</time><span><span class="timeline__place">格拉斯哥</span></span>
+        </li>
+        <li>
+          <time>2017.05 – 2021.12</time><span><span class="timeline__place">上海</span></span>
+        </li>
+        <li>
+          <time>2015.12 – 2017.05</time><span><span class="timeline__place">杭州</span></span>
+        </li>
+        <li>
+          <time>2012.09 – 2015.12</time><span><span class="timeline__place">武汉</span></span>
+        </li>
+      </ul>
+
+      <h2>教育</h2>
+      <ul class="timeline">
+        <li>
+          <time>2021 – 2022</time
+          ><span
+            ><span class="timeline__place">格拉斯哥大学</span
+            ><span class="timeline__role"> · 计算机科学硕士</span></span
+          >
+        </li>
+        <li>
+          <time>2012 – 2016</time
+          ><span
+            ><span class="timeline__place">武汉大学</span
+            ><span class="timeline__role"> · 软件工程学士</span></span
+          >
+        </li>
+      </ul>
+
+      <h2>技能</h2>
+      <p style="font-size: 0.9rem; color: #374151; margin: 0">
+        TypeScript · Go · Rust · PostgreSQL · Kubernetes · MapLibre
+      </p>
+    </main>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "footprint-globe": "../../packages/core/dist/index.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import { register } from '../../packages/web-component/dist/index.js';
+      register();
+    </script>
+  </body>
+</html>
