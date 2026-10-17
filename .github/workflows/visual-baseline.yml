@@ -1,9 +1,18 @@
 name: Visual Baseline
 
-# 手动触发：在 CI 环境重新生成视觉快照基线，
-# 产物上传为 artifact（visual-baselines），人工审核后提交回仓库。
+# 重新生成视觉快照基线（在 CI 比对环境中生成，保证环境一致）。
+# 触发方式：
+#   1. workflow_dispatch 手动触发；
+#   2. 修改 .github/baseline-trigger 哨兵文件并推送到 main。
+# 基线有变化时自动提交回 main；随后触发的 CI 将基于新基线校验。
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/baseline-trigger']
+
+permissions:
+  contents: write
 
 jobs:
   update-baselines:
@@ -32,9 +41,14 @@ jobs:
         working-directory: test
         run: pnpm exec playwright test visual --project=chromium --update-snapshots
 
-      - name: Upload baselines
-        uses: actions/upload-artifact@v4
-        with:
-          name: visual-baselines
-          path: test/visual/*-snapshots/
-          retention-days: 7
+      - name: Commit updated baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add test/visual/*-snapshots/
+          if git diff --cached --quiet; then
+            echo "No baseline changes."
+          else
+            git commit -m "test: update visual baselines (CI generated)"
+            git push
+          fi
