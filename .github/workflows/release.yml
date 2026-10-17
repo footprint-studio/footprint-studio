@@ -41,8 +41,8 @@ jobs:
         with:
           version: pnpm changeset version && pnpm install --no-frozen-lockfile
           publish: pnpm exec changeset publish && pnpm exec changeset tag
-          title: "chore: version packages"
-          commit: "chore: version packages"
+          title: 'chore: version packages'
+          commit: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
