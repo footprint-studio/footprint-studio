@@ -150,3 +150,4 @@
 ## 十、启用记录
 
 - 2026-10-17：Secrets（`CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`）与 Variable（`DEPLOY_CLOUDFLARE=true`）配置完成，自动部署流水线启用。
+- 2026-10-18：`NPM_TOKEN` 更换为可绕过 2FA 的 token，npm 自动发版链路启用。
