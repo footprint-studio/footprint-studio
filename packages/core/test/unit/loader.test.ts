@@ -28,8 +28,38 @@ describe('loadData', () => {
     expect(r.config.categories).toHaveLength(1);
   });
 
-  it('rejects non-HTTPS src', async () => {
+  it('rejects non-HTTPS src (except localhost)', async () => {
     await expect(loadData({ src: 'http://example.com/pins.json' })).rejects.toThrow(/HTTPS/);
+    await expect(loadData({ src: 'ftp://example.com/pins.json' })).rejects.toThrow(/HTTPS/);
+  });
+
+  it('resolves relative src against page URL and allows it', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(configBasic),
+    });
+    globalThis.fetch = fetchMock as unknown as typeof fetch;
+
+    const r = await loadData({ src: './pins.json' });
+    expect(r.config.categories).toHaveLength(1);
+    const calledUrl = String(fetchMock.mock.calls[0]![0]);
+    expect(calledUrl).toMatch(/^http:\/\/localhost(:\d+)?\/pins\.json$/);
+  });
+
+  it('allows localhost http for local development', async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(configBasic),
+    }) as unknown as typeof fetch;
+
+    for (const url of [
+      'http://localhost:8080/pins.json',
+      'http://127.0.0.1:3000/pins.json',
+      'http://[::1]:4000/pins.json',
+    ]) {
+      const r = await loadData({ src: url });
+      expect(r.config.categories).toHaveLength(1);
+    }
   });
 
   it('handles fetch failure', async () => {

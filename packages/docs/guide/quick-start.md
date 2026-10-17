@@ -51,9 +51,11 @@
 
 **要点：**
 
-- `data-src` 指向你的 JSON 文件（相对或绝对 URL，HTTPS）
+- `auto.js` 是**完全自包含**的产物，`footprint-globe` 已打包在内，**无需 importmap、无需任何额外配置**
+- `data-src` 指向你的 JSON 文件（相对或绝对 URL，需 HTTPS；本地调试可用 `http://localhost` / `http://127.0.0.1`）
 - 也可以直接用 `data-pins='{...}'` 内联 JSON
 - 引入 `auto.js` 后，所有 `.footprint-globe` 元素都会自动初始化
+- 地图引擎（maplibre-gl）默认按需从 CDN 加载，也可用 `maplibre-url` 指定自托管地址
 
 **数据内联写法（小数据，< 2KB）：**
 

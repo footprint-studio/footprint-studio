@@ -12,13 +12,32 @@ function isObject(v: unknown): v is Record<string, unknown> {
   return typeof v === 'object' && v !== null && !Array.isArray(v);
 }
 
-async function fetchJson(url: string): Promise<unknown> {
-  if (!url.startsWith('https://')) {
-    throw dataError('数据源必须使用 HTTPS');
+/**
+ * 校验数据源 URL：
+ * - 相对路径先按当前页面地址解析（文档用法 data-src="./pins.json"）
+ * - 放行 https: 任意地址
+ * - 放行 http: 的本地开发主机（localhost / 127.0.0.1 / ::1，含任意端口）
+ * - 其余（http://外网、file:、ftp: 等）一律拒绝
+ */
+function assertAllowedUrl(url: string): URL {
+  let u: URL;
+  try {
+    const base = typeof location !== 'undefined' ? location.href : undefined;
+    u = new URL(url, base);
+  } catch {
+    throw dataError('数据源 URL 无效');
   }
+  if (u.protocol === 'https:') return u;
+  const isLocal = /^(localhost|127\.0\.0\.1|::1|\[::1\])$/.test(u.hostname);
+  if (u.protocol === 'http:' && isLocal) return u;
+  throw dataError('数据源必须使用 HTTPS（本地开发环境 http://localhost 除外）');
+}
+
+async function fetchJson(url: string): Promise<unknown> {
+  const resolved = assertAllowedUrl(url);
   let res: Response;
   try {
-    res = await fetch(url);
+    res = await fetch(resolved.href);
   } catch (e) {
     throw dataError('网络请求失败', e);
   }

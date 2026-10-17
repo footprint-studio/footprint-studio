@@ -19,7 +19,20 @@
 </footprint-globe>
 ```
 
-### 手动注册
+`auto.js` 是**自包含**产物（`footprint-globe` 已打包在内），浏览器直接引入即可，**无需 importmap**。
+
+### 手动注册（构建工具场景）
+
+在 Vite / Webpack 项目中通过 npm 引入并按需注册，依赖去重交给构建工具：
+
+```html
+<script type="module">
+  import { register } from '@footprint-studio/web-component';
+  register();
+</script>
+```
+
+> 不用构建工具但想手动注册时，仍可走下面的 importmap 方式（推荐优先用上面的 `auto.js`，可省去 importmap）：
 
 ```html
 <script type="importmap">
@@ -37,7 +50,7 @@
 | ------------------- | --------------------------- | ----------------- |
 | `data-id`           | string                      | 短链（v1.1）      |
 | `data-pins`         | string                      | inline JSON       |
-| `data-src`          | string                      | JSON URL（HTTPS） |
+| `data-src`          | string                      | JSON URL（HTTPS，本地调试支持 `http://localhost`） |
 | `maplibre-url`      | string                      | MapLibre CDN      |
 | `theme`             | `light` \| `dark` \| `auto` | 主题              |
 | `projection`        | `globe` \| `mercator`       | 投影              |
