@@ -144,3 +144,9 @@
 - API Token 设置有效期（TTL），到期在 Cloudflare 后台续期即可
 - 定期到 GitHub → Settings → **Personal access tokens** 清理不再使用的 PAT（如今天用于推送的 `footprint-ci-push`，任务完成请立即 **Revoke**）
 - Secrets 一旦泄漏（如误贴到公开场合），立即在 Cloudflare **API Tokens → Roll** 重置，并同步更新 GitHub Secret
+
+---
+
+## 十、启用记录
+
+- 2026-10-17：Secrets（`CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`）与 Variable（`DEPLOY_CLOUDFLARE=true`）配置完成，自动部署流水线启用。
