@@ -40,10 +40,18 @@ jobs:
       - uses: changesets/action@v1
         with:
           version: pnpm changeset version && pnpm install --no-frozen-lockfile
-          publish: pnpm exec changeset publish && pnpm exec changeset tag
+          # 注意：publish 脚本里不能再用 && 复合命令——action 会原样拆参传给
+          # changeset CLI，导致 "Too many arguments" 错误
+          publish: pnpm exec changeset publish
           title: 'chore: version packages'
           commit: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # 打 git tag：独立步骤执行；无新发布时 changeset tag 为 no-op
+      - name: Tag published versions
+        run: pnpm exec changeset tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
