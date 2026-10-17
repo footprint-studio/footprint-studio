@@ -1,0 +1,40 @@
+name: Visual Baseline
+
+# 手动触发：在 CI 环境重新生成视觉快照基线，
+# 产物上传为 artifact（visual-baselines），人工审核后提交回仓库。
+on:
+  workflow_dispatch:
+
+jobs:
+  update-baselines:
+    name: Regenerate visual baselines
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Install Playwright browsers
+        run: pnpm --filter @footprint-studio/test exec playwright install --with-deps chromium
+
+      - name: Update snapshots
+        working-directory: test
+        run: pnpm exec playwright test visual --project=chromium --update-snapshots
+
+      - name: Upload baselines
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: test/visual/*-snapshots/
+          retention-days: 7
