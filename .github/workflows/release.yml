@@ -11,22 +11,24 @@ concurrency:
 jobs:
   release:
     name: Changesets（Version PR / NPM Publish）
-    # 流程：
-    #   1. 有 pending changeset 时，自动创建/更新 "chore: version packages" PR；
-    #   2. 合并该 PR 后自动 changeset publish 发布 npm 并打 tag。
-    # 注意：合并 Version PR 前需在 Secrets 配置 NPM_TOKEN（含 publish 权限的
-    # automation token），否则 publish 步骤会失败。
     runs-on: ubuntu-latest
+    # 🌟 新增：赋予 OIDC 权限，用于向 npm 证明我们的身份
+    permissions:
+      contents: write # changesets/action 需要写权限来创建 PR 和打 tag
+      pull-requests: write # changesets/action 需要创建 Version PR
+      id-token: write # 🌟 核心：用于 Trusted Publishing 获取 OIDC Token
+
     steps:
       - uses: actions/checkout@v4
         with:
-          # changesets 需要完整历史生成 changelog 与 git tag
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
+          # 🌟 注意：Trusted Publishing 要求 Node >= 22.14.0 且 npm >= 11.5.1
+          # 设置 22.x 会自动拉取最新的 22 版本，满足要求
           node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
@@ -40,17 +42,13 @@ jobs:
       - uses: changesets/action@v1
         with:
           version: pnpm changeset version && pnpm install --no-frozen-lockfile
-          # 注意：publish 脚本里不能再用 && 复合命令——action 会原样拆参传给
-          # changeset CLI，导致 "Too many arguments" 错误
           publish: pnpm exec changeset publish
           title: 'chore: version packages'
           commit: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # 🌟 删除了 NPM_TOKEN 和 NODE_AUTH_TOKEN，彻底告别静态密钥
 
-      # 打 git tag：独立步骤执行；无新发布时 changeset tag 为 no-op
       - name: Tag published versions
         run: pnpm exec changeset tag
         env:
