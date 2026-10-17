@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+jobs:
+  pages:
+    name: Cloudflare Pages（主站 + Embed）
+    # 启用步骤（仓库 Settings → Variables and secrets → Variables）：
+    #   1. 新增 Variable：DEPLOY_CLOUDFLARE = true
+    #   2. 新增 Secrets：CLOUDFLARE_API_TOKEN（模板：Cloudflare Pages Edit）、
+    #      CLOUDFLARE_ACCOUNT_ID
+    # 未配置 Variable 时本 job 自动跳过，不会红叉。
+    if: ${{ vars.DEPLOY_CLOUDFLARE == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # deploy.mjs 依赖 wrangler；随 CI 现场安装，避免 lockfile 与本地工具链耦合
+      - name: Install wrangler
+        run: pnpm add -Dw wrangler
+
+      # build-site.mjs 需要 docs / builder / core / web-component 的 dist 产物
+      - name: Build all packages
+        run: pnpm build
+
+      - name: Deploy site & embed
+        run: node scripts/deploy.mjs all
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
