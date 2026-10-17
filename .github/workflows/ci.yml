@@ -17,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 版本由 package.json 的 packageManager 字段决定；
+      # 显式传 version 会与 packageManager 冲突导致 action 直接失败
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -38,8 +38,15 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: Version consistency
+        run: node scripts/check-versions.mjs
+
       - name: Build
         run: pnpm build
+
+      # @playwright/test 不带 postinstall，浏览器必须显式安装
+      - name: Install Playwright browsers
+        run: pnpm --filter @footprint-studio/test exec playwright install --with-deps chromium
 
       - name: Test
         run: pnpm test
