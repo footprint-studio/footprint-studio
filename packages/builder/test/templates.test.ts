@@ -25,7 +25,7 @@ describe('generateWebComponent', () => {
   it('produces a script tag + footprint-globe element', () => {
     const out = generateWebComponent({ config, recommendation: 'inline' });
     expect(out).toContain('<script type="module"');
-    expect(out).toContain('@footprint-studio/web-component@1/dist/auto.js');
+    expect(out).toContain('footprint-globe@1/dist/auto.js');
     expect(out).toContain('<footprint-globe');
     expect(out).toContain('data-pins=');
     expect(out).toContain('theme="light"');

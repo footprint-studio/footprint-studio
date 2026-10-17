@@ -4,7 +4,7 @@
  * 决策：S2-Q1 Shadow DOM open；S2-Q9 disconnect 自动 destroy
  */
 
-import { FootprintGlobe, loadData, validateConfig, type FootprintConfig } from 'footprint-globe';
+import { FootprintGlobe, loadData, validateConfig, type FootprintConfig } from '../index';
 import { mergeAttributeConfig, parseAttributes } from './attributes';
 import { getShadowStyle } from './styles';
 

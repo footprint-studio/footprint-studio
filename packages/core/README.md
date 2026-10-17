@@ -15,6 +15,22 @@ npm i footprint-globe maplibre-gl
 
 ## 用法
 
+### 零构建（浏览器直接引入，推荐）
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
+
+<footprint-globe
+  data-src="./pins.json"
+  height="480px"
+  legend="true">
+</footprint-globe>
+```
+
+`dist/auto.js` 是**自包含**产物（含 Web Component 与 auto-init），无需 importmap。零构建用户**不需要**安装 maplibre-gl（引擎按需从 CDN 加载，可用 `maplibre-url` 自托管）。
+
+### 构建工具（Vite / Webpack）
+
 ```ts
 import { FootprintGlobe } from 'footprint-globe';
 import maplibregl from 'maplibre-gl';
@@ -42,7 +58,8 @@ const globe = new FootprintGlobe(document.getElementById('globe')!, {
 
 ## 导出
 
-- 类：`FootprintGlobe`
+- 类：`FootprintGlobe` / `FootprintGlobeElement`
+- Web Component：`register` / `autoInit` / `boot`
 - 工具：`validateConfig` / `normalizeConfig` / `loadData` / `parseCsv` / `parseGeoJson`
 - 错误：`FootprintError` / `isFootprintError`
 - 类型：`FootprintConfig` / `Category` / `Pin` / `RenderConfig` / `FootprintGlobeOptions` 等

@@ -106,7 +106,7 @@ test('E7 · switch export tabs generates expected code', async ({ page }) => {
 
   await page.locator('.builder-tab[data-export-type="web-component"]').click();
   await expect(page.locator('.builder-code code')).toContainText('<footprint-globe');
-  await expect(page.locator('.builder-code code')).toContainText('@footprint-studio/web-component');
+  await expect(page.locator('.builder-code code')).toContainText('footprint-globe');
 
   await page.locator('.builder-tab[data-export-type="iframe"]').click();
   await expect(page.locator('.builder-code code')).toContainText('<iframe');

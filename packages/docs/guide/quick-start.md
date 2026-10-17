@@ -38,7 +38,7 @@
 **零构建、样式隔离（Shadow DOM）。** 直接粘贴到 HTML：
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 
 <footprint-globe
   data-src="./my-pins.json"
@@ -60,7 +60,7 @@
 **数据内联写法（小数据，< 2KB）：**
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 
 <footprint-globe
   data-pins='{"version":1,"categories":[{"id":"travel","label":"旅行","color":"#f97316","pins":[{"name":"东京","coords":[139.759,35.682]}]}]}'
@@ -82,7 +82,7 @@
   height="480px"
   legend="true"></div>
 
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 ```
 
 **优势：** 适合 Hexo / WordPress 等平台，HTML 更简单。

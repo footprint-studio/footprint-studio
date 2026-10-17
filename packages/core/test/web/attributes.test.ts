@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { parseAttributes, mergeAttributeConfig } from '../src/attributes';
-import type { FootprintConfig } from 'footprint-globe';
+import { parseAttributes, mergeAttributeConfig } from '../../src/web/attributes';
+import type { FootprintConfig } from '../../src/index';
 
 function el(html: string): HTMLElement {
   const div = document.createElement('div');

@@ -4,17 +4,9 @@
 import { onMounted } from 'vue';
 
 onMounted(async () => {
-  // 确保存在 footprint-globe 的 importmap（客户端注入，规避 md 内多 script 限制）
-  if (!document.querySelector('script[type="importmap"]')) {
-    const im = document.createElement('script');
-    im.type = 'importmap';
-    im.textContent = JSON.stringify({
-      imports: { 'footprint-globe': 'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js' },
-    });
-    document.head.appendChild(im);
-  }
+  // 合并后的 footprint-globe 单包自带 register（除 maplibre 按需 CDN 加载外自包含）
   const { register } = await import(
-    'https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/index.js'
+    'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js'
   );
   register();
 });

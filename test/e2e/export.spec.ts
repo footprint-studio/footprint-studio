@@ -21,7 +21,7 @@ test('X1 · Web Component export contains expected attributes', async ({ page })
   const code = await page.locator('.builder-code code').textContent();
   expect(code).toBeTruthy();
   expect(code!).toContain('<script type="module"');
-  expect(code!).toContain('@footprint-studio/web-component@1/dist/auto.js');
+  expect(code!).toContain('footprint-globe@1/dist/auto.js');
   expect(code!).toContain('<footprint-globe');
   expect(code!).toContain('data-pins=');
   expect(code!).toContain('theme="light"');

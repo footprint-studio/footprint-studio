@@ -3,7 +3,7 @@
  * 契约依据：《Sprint 2 执行方案》§4.1、§6 S2-3
  */
 
-import type { FootprintConfig, RenderConfig } from 'footprint-globe';
+import type { FootprintConfig, RenderConfig } from '../index';
 
 export interface ParsedAttributes {
   id?: string;

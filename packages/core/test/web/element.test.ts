@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { FootprintGlobeElement, register } from '../src/element';
+import { FootprintGlobeElement, register } from '../../src/web/element';
 
 // 让 detectWebGL 返回 false（走降级列表，避免真实 WebGL）
 function disableWebGL() {

@@ -6,7 +6,7 @@
 import type { FootprintConfig } from 'footprint-globe';
 import type { Recommendation } from '../recommend';
 
-const CDN_AUTO = 'https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js';
+const CDN_AUTO = 'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js';
 
 export interface WebComponentTemplateOptions {
   config: FootprintConfig;

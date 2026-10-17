@@ -14,7 +14,7 @@
  * - 不监听 DOM 变化（v1.1 加 MutationObserver）
  */
 
-import { FootprintGlobe, loadData, validateConfig, type FootprintConfig } from 'footprint-globe';
+import { FootprintGlobe, loadData, validateConfig, type FootprintConfig } from '../index';
 import { mergeAttributeConfig, parseAttributes } from './attributes';
 import { register } from './element';
 

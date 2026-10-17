@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { register } from '../src/element';
-import type { FootprintGlobeElement } from '../src/element';
-import { getShadowStyle } from '../src/styles';
+import { register } from '../../src/web/element';
+import type { FootprintGlobeElement } from '../../src/web/element';
+import { getShadowStyle } from '../../src/web/styles';
 
 describe('Shadow DOM isolation', () => {
   beforeEach(() => {

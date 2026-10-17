@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { autoInit } from '../src/auto-init';
-import { register } from '../src/element';
+import { autoInit } from '../../src/web/auto-init';
+import { register } from '../../src/web/element';
 
 function disableWebGL() {
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);

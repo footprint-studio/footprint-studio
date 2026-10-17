@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { register } from '../src/element';
-import type { FootprintGlobeElement } from '../src/element';
+import { register } from '../../src/web/element';
+import type { FootprintGlobeElement } from '../../src/web/element';
 
 function disableWebGL() {
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
@@ -30,7 +30,7 @@ async function enableMaplibreAndWait(el: FootprintGlobeElement): Promise<void> {
       {} as unknown as RenderingContext,
     ) as unknown as typeof HTMLCanvasElement.prototype.getContext;
 
-  const { createMockMaplibre } = await import('../../core/test/mocks/maplibre');
+  const { createMockMaplibre } = await import('../mocks/maplibre');
   const handle = createMockMaplibre();
   (globalThis as { maplibregl?: unknown }).maplibregl = handle.maplibre;
 

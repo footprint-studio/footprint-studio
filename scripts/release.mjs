@@ -73,11 +73,9 @@ if (!skipChecks) {
 header('Step 7 · 发布清单');
 
 const core = readPkg('packages/core/package.json');
-const wc = readPkg('packages/web-component/package.json');
 
 console.log('\n将发布以下包：');
 console.log(`  • ${core.name}@${core.version}`);
-console.log(`  • ${wc.name}@${wc.version}`);
 
 const privatePkgs = [
   'packages/builder/package.json',

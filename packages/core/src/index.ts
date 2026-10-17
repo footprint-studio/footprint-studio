@@ -50,3 +50,9 @@ export { resolveMaplibre } from './map-controller';
 export { applyPrivacy } from './privacy';
 export { ListView } from './fallback/list-view';
 export { ThemeManager, styleForTheme } from './theme-manager';
+
+// Web Component（原 @footprint-studio/web-component，v1 起合并进本包）
+export { FootprintGlobeElement, register } from './web/element';
+export { autoInit, boot } from './web/auto-init';
+export { parseAttributes, mergeAttributeConfig } from './web/attributes';
+export { getShadowStyle, SHADOW_CSS } from './web/styles';

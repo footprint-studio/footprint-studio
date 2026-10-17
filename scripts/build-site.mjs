@@ -70,12 +70,13 @@ const examplesSrc = resolve(root, 'examples');
 log(`复制 examples → ${out}/examples`);
 copyDir(examplesSrc, join(out, 'examples'));
 
-// ============ 5. 复制 core/web-component dist（供 examples 相对路径引用） ============
+// ============ 5. 复制 core dist（供 examples 相对路径引用） ============
 // examples 通过 ../../packages/*/dist 引用，在 dist-site 中这些路径不存在。
 // 解法：在 dist-site 中创建 packages/ 镜像，仅复制 dist。
+// 兼容：examples 中曾引用 web-component/dist，现统一由 core/dist 提供。
 const mirrorPkgs = [
   ['packages/core/dist', 'packages/core/dist'],
-  ['packages/web-component/dist', 'packages/web-component/dist'],
+  ['packages/core/dist', 'packages/web-component/dist'],
 ];
 
 for (const [from, to] of mirrorPkgs) {
