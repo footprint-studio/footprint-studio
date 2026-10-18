@@ -20,10 +20,25 @@ const DEFAULT_MAPLIBRE_URL = 'https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/ma
 
 const MAPLIBRE_CSS_URL = 'https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.css';
 
-/** 动态加载 maplibre-gl CSS（仅一次） */
+// auto 产物构建时内联的 maplibre-gl CSS（压缩后全文）；index 产物中为空串。
+// 由 tsup define 注入，源码/测试环境中未定义，故用 typeof 守卫。
+declare const __FP_MAPLIBRE_CSS_BUNDLED__: string;
+
+/** 动态加载 maplibre-gl CSS（仅一次）：优先注入内联 <style>，否则回退 CDN <link> */
 function ensureMaplibreCss(url = MAPLIBRE_CSS_URL): void {
   const marker = 'data-fp-maplibre-css';
-  if (document.querySelector(`link[${marker}]`)) return;
+  if (document.querySelector(`[${marker}]`)) return;
+
+  const bundled =
+    typeof __FP_MAPLIBRE_CSS_BUNDLED__ === 'string' ? __FP_MAPLIBRE_CSS_BUNDLED__ : '';
+  if (bundled) {
+    const style = document.createElement('style');
+    style.setAttribute(marker, '1');
+    style.textContent = bundled;
+    document.head.appendChild(style);
+    return;
+  }
+
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = url;

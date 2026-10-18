@@ -7,6 +7,7 @@ const shadowCss = JSON.stringify(readFileSync('src/styles/footprint-globe.css', 
 export default defineConfig({
   define: {
     __FP_SHADOW_CSS__: shadowCss,
+    __FP_MAPLIBRE_CSS_BUNDLED__: '""',
   },
   test: {
     environment: 'jsdom',

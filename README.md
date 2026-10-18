@@ -21,10 +21,10 @@
 
 ### 方式一：Web Component（推荐）
 
-零构建、样式隔离（Shadow DOM）。直接粘贴到 HTML：
+零构建、样式隔离（Shadow DOM）。直接粘贴到 HTML（auto.js 自包含，含 Web Component、auto-init 与 maplibre-gl CSS，一行引入即可）：
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 
 <footprint-globe
   data-src="./my-pins.json"

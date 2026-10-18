@@ -27,7 +27,7 @@ npm i footprint-globe maplibre-gl
 </footprint-globe>
 ```
 
-`dist/auto.js` 是**自包含**产物（含 Web Component 与 auto-init），无需 importmap。零构建用户**不需要**安装 maplibre-gl（引擎按需从 CDN 加载，可用 `maplibre-url` 自托管）。
+`dist/auto.js` 是**自包含**产物（含 Web Component、auto-init 与 maplibre-gl CSS），无需 importmap、无需另引 CSS。零构建用户**不需要**安装 maplibre-gl（JS 引擎按需从 CDN 加载，可用 `maplibre-url` 自托管）。
 
 ### 构建工具（Vite / Webpack）
 
