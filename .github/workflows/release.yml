@@ -48,7 +48,8 @@ jobs:
           # Trusted Publishing 要求 Node >= 22.14.0 且 npm >= 11.5.1
           node-version: 22
           cache: pnpm
-          registry-url: https://registry.npmjs.org
+          # 故意不设 registry-url：OIDC 发布不需要 .npmrc / NODE_AUTH_TOKEN，
+          # 而 setup-node 生成的 .npmrc 里 always-auth 在 npm 11 会报警告。
 
       - name: Install
         run: pnpm install --frozen-lockfile
@@ -80,10 +81,32 @@ jobs:
           git commit -m 'chore: version packages'
           git push origin HEAD:main
 
+      # 为什么不用 `changeset publish`：
+      # changesets 检测到 pnpm 会执行 `pnpm publish --no-git-checks`，而 pnpm 9 的
+      # publish 内部转调 `npm publish` 并把该 pnpm 专属参数一起透传；npm 11 对未知
+      # 参数是硬报错（EUNKNOWNCONFIG: Unknown cli flag: --git-checks），而 Trusted
+      # Publishing 又强制 npm >= 11.5.1 —— 两边直接冲突。单包结构下直接调 npm 最稳。
       - name: Publish to npm (Trusted Publishing / OIDC)
-        run: pnpm exec changeset publish
-        env:
-          NPM_CONFIG_PROVENANCE: 'true'
+        id: publish
+        working-directory: packages/core
+        run: |
+          set -euo pipefail
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          if npm view "$name@$version" version >/dev/null 2>&1; then
+            echo "::notice::$name@$version 已在 npm 上，跳过发布"
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "发布 $name@$version"
+          npm publish --provenance --access public
+          echo "published=true" >> "$GITHUB_OUTPUT"
 
-      - name: Push tags
-        run: git push --tags origin || true
+      - name: Tag and push
+        if: steps.publish.outputs.published == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          pnpm exec changeset tag
+          git push --tags origin
