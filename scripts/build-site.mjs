@@ -25,6 +25,7 @@ import {
 } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const out = resolve(root, 'dist-site');
@@ -60,8 +61,18 @@ const docsDist = resolve(root, 'packages/docs/.vitepress/dist');
 log(`复制 docs → ${out}`);
 copyDir(docsDist, out);
 
-// ============ 3. 复制 builder 到 /builder/ ============
-const builderDist = resolve(root, 'packages/builder/dist');
+// ============ 3. 构建并复制 builder 到 /builder/ ============
+// 站点把 builder 挂在 /builder/ 下，必须以 base=/builder/ 构建：默认 base 会让
+// index.html 和动态 chunk 引用 /assets/...，在 /builder/ 路径下全部 404（白屏）。
+// 这里带环境变量重新构建，不复用 turbo 缓存的产物。
+const builderDir = resolve(root, 'packages/builder');
+log('构建 builder（base=/builder/）');
+execSync('pnpm exec vite build', {
+  cwd: builderDir,
+  stdio: 'inherit',
+  env: { ...process.env, BUILDER_BASE: '/builder/' },
+});
+const builderDist = resolve(builderDir, 'dist');
 log(`复制 builder → ${out}/builder`);
 copyDir(builderDist, join(out, 'builder'));
 
