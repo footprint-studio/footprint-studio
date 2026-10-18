@@ -6,7 +6,8 @@
 import type { FootprintConfig } from 'footprint-globe';
 import type { Recommendation } from '../recommend';
 
-const DEFAULT_EMBED_BASE = 'https://embed.footprint-studio.dev/';
+// 当前实际部署地址（footprint-studio.dev 尚未接入 DNS，写死会造成死链）
+const DEFAULT_EMBED_BASE = 'https://footprint-studio-embed.pages.dev/';
 
 export interface IframeTemplateOptions {
   config: FootprintConfig;

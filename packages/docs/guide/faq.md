@@ -45,7 +45,7 @@
 | 2–50 KB | 部署 JSON，用 `data-src` |
 | > 50 KB | iframe + `data-src`，或等 v1.1 短链托管 |
 
-[在线 Builder](https://builder.footprint-studio.dev/) 会自动推荐。
+[在线 Builder](https://footprint-studio.pages.dev/builder/) 会自动推荐。
 
 ## 如何自定义颜色？
 

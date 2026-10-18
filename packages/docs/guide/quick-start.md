@@ -3,7 +3,7 @@
 三种接入方式，选一种。
 
 ::: tip 零基础推荐
-先用 [在线 Builder](https://builder.footprint-studio.dev/) 生成代码，再复制到你的博客。
+先用 [在线 Builder](https://footprint-studio.pages.dev/builder/) 生成代码，再复制到你的博客。
 :::
 
 ## 准备数据
@@ -95,7 +95,7 @@
 
 ```html
 <iframe
-  src="https://embed.footprint-studio.dev/?src=https://example.com/pins.json&theme=light&height=480"
+  src="https://footprint-studio-embed.pages.dev/?src=https://example.com/pins.json&theme=light&height=480"
   width="100%"
   height="480"
   style="border:0;border-radius:12px"

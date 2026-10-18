@@ -86,7 +86,7 @@ globe.destroy();
 
 ```html
 <iframe
-  src="https://embed.footprint-studio.dev/?src=https://example.com/pins.json&height=480"
+  src="https://footprint-studio-embed.pages.dev/?src=https://example.com/pins.json&height=480"
   width="100%"
   height="480"
   style="border:0;border-radius:12px"

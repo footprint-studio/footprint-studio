@@ -109,7 +109,7 @@ describe('decodeShare', () => {
   it('accepts full URL', () => {
     const enc = encodeShare(stateWith('hello'));
     if (enc.ok) {
-      const url = `https://builder.footprint-studio.dev/${enc.hash}`;
+      const url = `https://footprint-studio.pages.dev/builder/${enc.hash}`;
       const decoded = decodeShare(url);
       expect(decoded).not.toBeNull();
       expect(decoded!.raw).toBe('hello');

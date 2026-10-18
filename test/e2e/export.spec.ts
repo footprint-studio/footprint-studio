@@ -40,7 +40,7 @@ test('X2 · iframe export encodes data as base64url', async ({ page }) => {
   expect(m).not.toBeNull();
   const url = m![1]!.replace(/&amp;/g, '&');
 
-  expect(url).toContain('embed.footprint-studio.dev');
+  expect(url).toContain('footprint-studio-embed.pages.dev');
   expect(url).toMatch(/[?&]data=/);
   // base64url 中不应出现 '+' 或 '/'
   const dataMatch = url.match(/[?&]data=([^&]+)/);

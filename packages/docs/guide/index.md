@@ -56,7 +56,7 @@ onMounted(async () => {
 
 - [快速开始](/guide/quick-start) — 5 分钟完成接入
 - [配置协议](/guide/config-protocol) — 所有可配置字段
-- [在线 Builder](https://builder.footprint-studio.dev/) — 零代码生成
+- [在线 Builder](https://footprint-studio.pages.dev/builder/) — 零代码生成
 
 ## 品牌与许可
 

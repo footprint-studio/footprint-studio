@@ -66,4 +66,4 @@ examples/
 
 复制对应目录 → 替换 `data/pins.json` → 调整文案与样式。
 
-或直接使用 [在线 Builder](https://builder.footprint-studio.dev/) 生成嵌入代码。
+或直接使用 [在线 Builder](https://footprint-studio.pages.dev/builder/) 生成嵌入代码。

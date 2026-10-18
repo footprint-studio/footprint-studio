@@ -77,7 +77,7 @@ if (target === 'embed' || target === 'all') {
 
 header('完成');
 console.log(`
-若为自定义域名，请在 Cloudflare Dashboard → Pages → Custom domains 中添加：
+（可选）若接入自定义域名，请在 Cloudflare Dashboard → Pages → Custom domains 中添加：
   • footprint-studio.dev
   • embed.footprint-studio.dev
 

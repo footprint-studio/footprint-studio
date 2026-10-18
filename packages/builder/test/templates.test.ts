@@ -91,7 +91,7 @@ describe('generateIframe', () => {
   it('produces iframe with embed URL', () => {
     const out = generateIframe({ config, recommendation: 'inline' });
     expect(out).toContain('<iframe');
-    expect(out).toContain('https://embed.footprint-studio.dev/');
+    expect(out).toContain('https://footprint-studio-embed.pages.dev/');
     expect(out).toContain('title="我的足迹"');
   });
 

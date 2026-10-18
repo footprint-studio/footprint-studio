@@ -102,6 +102,6 @@ export function buildShareUrl(hash: string): string {
   const base =
     typeof location !== 'undefined'
       ? `${location.origin}${location.pathname}`
-      : 'https://builder.footprint-studio.dev/';
+      : 'https://footprint-studio.pages.dev/builder/';
   return `${base}${hash}`;
 }

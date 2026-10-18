@@ -46,4 +46,4 @@ python3 -m http.server 8080
 
 复制对应目录，替换 `data/pins.json` 中的数据，即可用于自己的站点。
 
-也可直接使用 [在线 Builder](https://builder.footprint-studio.dev/) 生成嵌入代码。
+也可直接使用 [在线 Builder](https://footprint-studio.pages.dev/builder/) 生成嵌入代码。

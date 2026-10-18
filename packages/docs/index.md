@@ -11,7 +11,7 @@ hero:
       link: /guide/quick-start
     - theme: alt
       text: 在线配置（Builder）
-      link: https://builder.footprint-studio.dev/
+      link: https://footprint-studio.pages.dev/builder/
     - theme: alt
       text: GitHub
       link: https://github.com/footprint-studio/footprint-studio
@@ -86,7 +86,7 @@ const globe = new FootprintGlobe(document.getElementById('globe')!, {
 
 ```html [iframe]
 <iframe
-  src="https://embed.footprint-studio.dev/?src=https://example.com/pins.json&height=480"
+  src="https://footprint-studio-embed.pages.dev/?src=https://example.com/pins.json&height=480"
   width="100%"
   height="480"
   style="border:0;border-radius:12px"
@@ -101,7 +101,7 @@ const globe = new FootprintGlobe(document.getElementById('globe')!, {
 
 - [快速开始](/guide/quick-start)：三种接入方式完整示例
 - [配置协议](/guide/config-protocol)：所有可配置字段
-- [在线 Builder](https://builder.footprint-studio.dev/)：零代码生成嵌入代码
+- [在线 Builder](https://footprint-studio.pages.dev/builder/)：零代码生成嵌入代码
 - [示例库](/examples/)：4 个真实场景
 
 ## 许可

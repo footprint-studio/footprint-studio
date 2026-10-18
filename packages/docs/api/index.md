@@ -6,7 +6,7 @@
 |---|---|---|
 | **核心类** | `import { FootprintGlobe } from 'footprint-globe'` | 有构建工具的开发者 |
 | **Web Component** | `<footprint-globe>` 标签 | 零构建，直接放 HTML |
-| **iframe** | `https://embed.footprint-studio.dev/` | 平台过滤 HTML 时 |
+| **iframe** | `https://footprint-studio-embed.pages.dev/` | 平台过滤 HTML 时 |
 
 ## 导出内容
 

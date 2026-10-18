@@ -123,4 +123,4 @@ name,lng,lat,category,date,note,photos
 | 2 KB – 50 KB | Web Component + `data-src` 自托管 |
 | > 50 KB | iframe + `data-src`（v1.1 支持短链托管） |
 
-[在线 Builder](https://builder.footprint-studio.dev/) 会根据数据量自动推荐。
+[在线 Builder](https://footprint-studio.pages.dev/builder/) 会根据数据量自动推荐。
