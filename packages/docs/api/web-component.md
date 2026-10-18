@@ -5,17 +5,14 @@
 ## 引入
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 ```
 
-或按需引入（手动注册）：
+或手动注册（`dist/index.js` 也是零裸导入，无需 importmap）：
 
 ```html
-<script type="importmap">
-{ "imports": { "footprint-globe": "https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js" } }
-</script>
 <script type="module">
-  import { register } from 'https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/index.js';
+  import { register } from 'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js';
   register();
 </script>
 ```
@@ -60,7 +57,7 @@
 ```html
 <footprint-globe id="globe" data-src="./pins.json" height="480px"></footprint-globe>
 <script type="module">
-  import { register } from 'https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/index.js';
+  import { register } from 'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js';
   register();
 
   const el = document.getElementById('globe');
@@ -156,7 +153,7 @@ footprint-globe::part(list) {
 
 ```html
 <div class="footprint-globe" data-src="./pins.json" height="480px"></div>
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 ```
 
 **跳过已初始化：** 元素会自动添加 `data-fp-bound="1"` 属性。
@@ -189,7 +186,7 @@ footprint-globe::part(list) {
     legend="true"></footprint-globe>
 
   <script type="module">
-    import { register } from 'https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/index.js';
+    import { register } from 'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js';
     register();
 
     const el = document.getElementById('globe');

@@ -39,17 +39,28 @@ jobs:
       - name: Build
         run: pnpm build
 
+      # Trusted Publishing 需要 npm >= 11.5.1（Node 22 自带的 npm 10 不满足）
+      - name: Upgrade npm (Trusted Publishing 要求 npm >= 11.5.1)
+        run: |
+          npm install -g npm@latest
+          npm --version
+
       - uses: changesets/action@v1
+        id: changesets
         with:
-          version: pnpm changeset version && pnpm install --no-frozen-lockfile
+          # 注意：只能是一条命令。写成 "a && b" 会被当参数拆开传给 changeset CLI，
+          # 报 "Too many arguments passed to changesets"。
+          # 单包结构下 version 变更不影响 pnpm-lock，无需再跑 install。
+          version: pnpm exec changeset version
           publish: pnpm exec changeset publish
           title: 'chore: version packages'
           commit: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # 🌟 删除了 NPM_TOKEN 和 NODE_AUTH_TOKEN，彻底告别静态密钥
+          NPM_CONFIG_PROVENANCE: 'true'
+          # 🌟 删除 NPM_TOKEN：走 OIDC Trusted Publishing，无静态密钥
 
+      # changeset publish 只在确实发布了新版本时才有 tag 可推
       - name: Tag published versions
+        if: steps.changesets.outputs.published == 'true'
         run: pnpm exec changeset tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

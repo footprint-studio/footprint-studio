@@ -41,19 +41,8 @@ features:
 import { onMounted } from 'vue';
 
 onMounted(async () => {
-  // 确保存在 footprint-globe 的 importmap（客户端注入，规避 md 内多 script 限制）
-  if (!document.querySelector('script[type="importmap"]')) {
-    const im = document.createElement('script');
-    im.type = 'importmap';
-    im.textContent = JSON.stringify({
-      imports: { 'footprint-globe': 'https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/index.js' },
-    });
-    document.head.appendChild(im);
-  }
-  const { register } = await import(
-    'https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/index.js'
-  );
-  register();
+  // auto.js 已自包含（Web Component + core），无需 importmap
+  await import('https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js');
 });
 </script>
 
@@ -74,7 +63,7 @@ onMounted(async () => {
 ::: code-group
 
 ```html [Web Component（推荐）]
-<script type="module" src="https://cdn.jsdelivr.net/npm/@footprint-studio/web-component@1/dist/auto.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/footprint-globe@1/dist/auto.js"></script>
 
 <footprint-globe
   data-src="./my-pins.json"

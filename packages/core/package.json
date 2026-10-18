@@ -5,7 +5,11 @@
   "type": "module",
   "license": "MIT",
   "author": "Footprint Studio",
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/auto.js",
+    "./dist/auto.cjs",
+    "**/*.css"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/footprint-studio/footprint-studio.git",
@@ -33,11 +37,12 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./dist/footprint-globe.css": "./dist/footprint-globe.css",
     "./auto": {
       "import": "./dist/auto.js",
       "require": "./dist/auto.cjs"
-    }
+    },
+    "./dist/footprint-globe.css": "./dist/footprint-globe.css",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",

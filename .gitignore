@@ -4,6 +4,7 @@ node_modules/
 
 # build
 dist/
+dist-site/
 .turbo/
 *.tsbuildinfo
 **/.vitepress/cache/

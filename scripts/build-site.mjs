@@ -71,13 +71,11 @@ log(`复制 examples → ${out}/examples`);
 copyDir(examplesSrc, join(out, 'examples'));
 
 // ============ 5. 复制 core dist（供 examples 相对路径引用） ============
-// examples 通过 ../../packages/*/dist 引用，在 dist-site 中这些路径不存在。
+// examples 通过 ../../packages/core/dist 引用，在 dist-site 中这些路径不存在。
 // 解法：在 dist-site 中创建 packages/ 镜像，仅复制 dist。
-// 兼容：examples 中曾引用 web-component/dist，现统一由 core/dist 提供。
-const mirrorPkgs = [
-  ['packages/core/dist', 'packages/core/dist'],
-  ['packages/core/dist', 'packages/web-component/dist'],
-];
+// 注意：不再为已删除的 packages/web-component 做兼容镜像，
+// 否则残留的旧路径引用会被静默掩盖（视觉夹具曾因此 404 而未被发现）。
+const mirrorPkgs = [['packages/core/dist', 'packages/core/dist']];
 
 for (const [from, to] of mirrorPkgs) {
   const src = resolve(root, from);

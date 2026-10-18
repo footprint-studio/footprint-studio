@@ -54,10 +54,9 @@ import type {
 
 | 导入路径 | 内容 |
 |---|---|
-| `footprint-globe` | 核心类 + 工具函数 |
+| `footprint-globe` | 核心类 + 工具函数 + Web Component（`register()`） |
+| `footprint-globe/auto` | auto-init 入口（副作用，注册并扫描页面元素） |
 | `footprint-globe/dist/footprint-globe.css` | 样式 |
-| `@footprint-studio/web-component` | Web Component |
-| `@footprint-studio/web-component/auto` | auto-init 入口（副作用） |
 
 ## 详细文档
 
