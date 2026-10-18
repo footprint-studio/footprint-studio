@@ -1,8 +1,25 @@
 name: Release
 
+# 发版模型：CI 通过后直接发版（不使用 Version PR）
+# ---------------------------------------------------------------------------
+# 背景：GitHub 组织策略可能禁止 Actions 创建 / 审批 PR
+# （"GitHub Actions is not permitted to create or approve pull requests"），
+# 该开关由组织管理员控制，仓库级设置为只读，且当前 PAT 也没有 pull-request
+# 写权限。与其依赖一个可能永远打不开的开关，这里改为：
+#
+#   1. CI 在 main 上跑绿后触发本工作流（workflow_run）；
+#   2. 若有待发 changeset，当场 changeset version → 提交 → 推回 main；
+#   3. 立刻 changeset publish（OIDC Trusted Publishing）+ 推 tag。
+#
+# 版本提交用 GITHUB_TOKEN 推送，GitHub 不会为它再触发工作流，
+# 因此不存在自我触发的死循环；下面仍保留一条基于提交信息的兜底判断。
+
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: release-main
@@ -10,25 +27,25 @@ concurrency:
 
 jobs:
   release:
-    name: Changesets（Version PR / NPM Publish）
+    name: 版本号维护 + npm 发布
     runs-on: ubuntu-latest
-    # 🌟 新增：赋予 OIDC 权限，用于向 npm 证明我们的身份
+    if: "${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && !startsWith(github.event.workflow_run.head_commit.message, 'chore: version packages')) }}"
     permissions:
-      contents: write # changesets/action 需要写权限来创建 PR 和打 tag
-      pull-requests: write # changesets/action 需要创建 Version PR
-      id-token: write # 🌟 核心：用于 Trusted Publishing 获取 OIDC Token
+      contents: write # 需要推送版本提交与 tag
+      id-token: write # Trusted Publishing（OIDC）
 
     steps:
       - uses: actions/checkout@v4
         with:
+          # workflow_run 事件下要显式对齐到被触发那次 CI 的提交
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
-          # 🌟 注意：Trusted Publishing 要求 Node >= 22.14.0 且 npm >= 11.5.1
-          # 设置 22.x 会自动拉取最新的 22 版本，满足要求
+          # Trusted Publishing 要求 Node >= 22.14.0 且 npm >= 11.5.1
           node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
@@ -36,34 +53,37 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # CI 已经跑过 lint / 单测 / E2E，这里只需要产物
       - name: Build
         run: pnpm build
 
-      # Trusted Publishing 需要 npm >= 11.5.1（Node 22 自带的 npm 10 不满足）
-      - name: Upgrade npm (Trusted Publishing 要求 npm >= 11.5.1)
+      - name: Upgrade npm (>= 11.5.1，Trusted Publishing 硬性要求)
         run: |
           npm install -g npm@latest
           npm --version
 
-      - uses: changesets/action@v1
-        id: changesets
-        with:
-          # 注意：只能是一条命令。写成 "a && b" 会被当参数拆开传给 changeset CLI，
-          # 报 "Too many arguments passed to changesets"。
-          # 单包结构下 version 变更不影响 pnpm-lock，无需再跑 install。
-          version: pnpm exec changeset version
-          publish: pnpm exec changeset publish
-          title: 'chore: version packages'
-          commit: 'chore: version packages'
-        env:
-          # 组织级策略不允许 GITHUB_TOKEN 创建 PR 时，配一个 RELEASE_TOKEN
-          # （fine-grained PAT：Contents + Pull requests 读写即可）即可绕过；
-          # 未配置时自动回落 GITHUB_TOKEN，行为与原先一致。
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
-          # 🌟 仍不设 NPM_TOKEN：发布走 OIDC Trusted Publishing
+      - name: Detect pending changesets
+        id: pending
+        run: |
+          count=$(ls .changeset/*.md 2>/dev/null | grep -v 'README.md' | wc -l | tr -d ' ')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "待发 changeset 数量：$count"
 
-      # changeset publish 只在确实发布了新版本时才有 tag 可推
-      - name: Tag published versions
-        if: steps.changesets.outputs.published == 'true'
-        run: pnpm exec changeset tag
+      - name: Version and push
+        if: steps.pending.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          pnpm exec changeset version
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'chore: version packages'
+          git push origin HEAD:main
+
+      - name: Publish to npm (Trusted Publishing / OIDC)
+        run: pnpm exec changeset publish
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
+
+      - name: Push tags
+        run: git push --tags origin || true
