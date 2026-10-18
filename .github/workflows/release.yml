@@ -56,9 +56,12 @@ jobs:
           title: 'chore: version packages'
           commit: 'chore: version packages'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 组织级策略不允许 GITHUB_TOKEN 创建 PR 时，配一个 RELEASE_TOKEN
+          # （fine-grained PAT：Contents + Pull requests 读写即可）即可绕过；
+          # 未配置时自动回落 GITHUB_TOKEN，行为与原先一致。
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'
-          # 🌟 删除 NPM_TOKEN：走 OIDC Trusted Publishing，无静态密钥
+          # 🌟 仍不设 NPM_TOKEN：发布走 OIDC Trusted Publishing
 
       # changeset publish 只在确实发布了新版本时才有 tag 可推
       - name: Tag published versions
